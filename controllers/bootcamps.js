@@ -61,7 +61,7 @@ exports.createBootCamp = async (req, res, next) =>{
 
 exports.updateBootCamp = async (req, res, next) =>{
     try {
-        const bootcamp = Bootcamp.findByIdAndUpdate(req.params.id, req.body , {
+        const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body , {
             new: true,
             runValidators: true
         });
@@ -75,10 +75,11 @@ exports.updateBootCamp = async (req, res, next) =>{
     
         res.status(200).json({success: true, data: bootcamp});
 
-    } catch (error) {
+    } catch (err) {
         res.status(400)
         .json({
             success: false,
+            reason: err
         });
     }
 
