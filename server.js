@@ -3,6 +3,7 @@
 // Includes
 const express = require('express');
 const colors = require('colors');
+const errorHandler = require('./middleware/error');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./config/DB');
@@ -33,6 +34,9 @@ if(process.env.NODE_ENV === 'development'){
 const PORT = process.env.PORT || 5000;
 
 app.use('/api/v1/bootcamps', bootcamps);
+
+app.use(errorHandler);
+
 
 const server = app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold);
